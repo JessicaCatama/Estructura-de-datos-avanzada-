@@ -1,0 +1,49 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Un registro: varios campos juntos
+struct Student {
+    int id;
+    string name;
+    string lastname;
+    int number;
+    string address;
+};
+
+struct Node {
+    Student data;
+    Node* next;
+};
+
+// Insertar al inicio: el nodo guarda un Student completo
+void pushFront(Node*& head, Student s) {
+    head = new Node{s, head};
+}
+
+void print(Node* head) {
+    for (Node* cur = head; cur != NULL; cur = cur->next) {
+        cout << cur->data.id << " - " << cur->data.name << " - " << cur->data.lastname << " - " << cur->data.number << " - " << cur->data.address << "\n";
+    }
+}
+
+void clear(Node*& head) {
+    while (head != NULL) {
+        Node* tmp = head;
+        head = head->next;
+        delete tmp;
+    }
+}
+
+int main() {
+    Node* head = NULL;
+
+    pushFront(head, {101, "Ana", "Martinez", 31205451, "Trasversal 51a #12 - 5"});
+    pushFront(head, {102, "Luis", "Oviedo", 32011103, "Carrera 22 - 1"});
+    pushFront(head, {200, "Laura", "Pastrana", 3155213, "Calle 61a - 14"});
+
+    cout << "Estudiantes:\n";
+    print(head);
+
+    clear(head);
+}
